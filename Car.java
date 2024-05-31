@@ -55,6 +55,7 @@ shallow copy
 -Shallow copy is a relatively faster operation and requires less memory.
 -Shallow copy is suitable when you want to create a new object, but you don’t need independent copies of the elements.
 -The default version of the clone() method supports shallow copy.
+- ArrayList<String> shallowCopy = (ArrayList<String>) originalList.clone();
 
 
 Deep Copy
@@ -111,5 +112,77 @@ return (GFG)super.clone();
 		System.out.println(t1 == t2);
 	}
 }
+
+
+shallow copy
+import java.util.ArrayList;
+
+public class ShallowCopyExample {
+    public static void main(String[] args) {
+        ArrayList<String> originalList = new ArrayList<>();
+        originalList.add("Hello");
+        originalList.add("World");
+
+        // Create a shallow copy of the list
+        ArrayList<String> shallowCopy = (ArrayList<String>) originalList.clone();
+
+        // Modify the shallow copy
+        shallowCopy.set(0, "Hi");
+
+        // Print both lists
+        System.out.println("Original List: " + originalList);
+        System.out.println("Shallow Copy: " + shallowCopy);
+    }
+}
+
+
+
+deep copy
+import java.util.ArrayList;
+import java.util.List;
+
+class DeepCopyExample implements Cloneable {
+    private List<String> list;
+
+    public DeepCopyExample() {
+        this.list = new ArrayList<>();
+    }
+
+    public void addItem(String item) {
+        list.add(item);
+    }
+
+    public List<String> getList() {
+        return list;
+    }
+
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        DeepCopyExample deepCopy = (DeepCopyExample) super.clone();
+        deepCopy.list = new ArrayList<>(this.list); // Create a deep copy of the list
+        return deepCopy;
+    }
+
+    public static void main(String[] args) {
+        try {
+            DeepCopyExample original = new DeepCopyExample();
+            original.addItem("Hello");
+            original.addItem("World");
+
+            // Create a deep copy of the object
+            DeepCopyExample deepCopy = (DeepCopyExample) original.clone();
+
+            // Modify the deep copy
+            deepCopy.getList().set(0, "Hi");
+
+            // Print both lists
+            System.out.println("Original List: " + original.getList());
+            System.out.println("Deep Copy: " + deepCopy.getList());
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
 
  */
