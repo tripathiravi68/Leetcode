@@ -68,6 +68,7 @@ Deep Copy
 because of overriding the clone() method of the object class.
 -In can not directly call clone() method using object.clone() as clone method in Object class of java is protected. So override the
 function by making access modifier as public in return super.clone() from the class created to override
+-this can be done using serialization.
 
 
 In fact, there is no difference between deep and shallow copy when we are dealing with strings as well as primitives in Java.
